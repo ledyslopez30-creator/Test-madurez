@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de Madurez Digital · Más Turismo Más Negocios</title>
+<style>
+  :root {
+    --azul:#156DC9; --azul-dark:#0e4f96; --azul-light:#e8f2fc; --azul-mid:#b8d5f4;
+    --verde:#82B638; --verde-dark:#5a8227; --verde-light:#eef6e0; --verde-mid:#c4e091;
+    --gris:#4a4a4a; --gris-mid:#888; --gris-light:#f5f5f5; --gris-border:#e0e0e0;
+    --blanco:#ffffff; --text:#1e1e1e; --r:10px; --rl:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f0f4f8;color:var(--text);min-height:100vh;}
+
+  .inst-header{background:var(--blanco);border-bottom:3px solid var(--azul);}
+  .inst-top{background:var(--azul);padding:8px 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .prog-title{display:flex;align-items:baseline;gap:6px;}
+  .prog-title span:first-child{font-size:18px;font-weight:700;color:var(--blanco);}
+  .prog-title span:last-child{font-size:18px;font-weight:400;color:rgba(255,255,255,0.9);}
+  .inst-logos{background:var(--blanco);padding:10px 2rem;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+  .inst-group{display:flex;align-items:center;gap:8px;padding-right:16px;margin-right:16px;border-right:1px solid var(--gris-border);}
+  .inst-group:last-child{border-right:none;margin-right:0;padding-right:0;}
+  .inst-label{font-size:10px;color:var(--gris-mid);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;}
+  .logo-pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.03em;white-space:nowrap;border:1.5px solid;}
+  .logo-azul{color:var(--azul);border-color:var(--azul);}
+  .logo-verde{color:var(--verde-dark);border-color:var(--verde);}
+  .logo-gris{color:var(--gris);border-color:var(--gris-border);}
+  .logo-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px;}
+
+  .hero{background:var(--blanco);border-bottom:1px solid var(--gris-border);padding:2.5rem 2rem 2rem;text-align:center;}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--azul-light);color:var(--azul-dark);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:4px 14px;border-radius:20px;border:1px solid var(--azul-mid);margin-bottom:1.1rem;}
+  .hero h1{font-size:28px;font-weight:700;line-height:1.25;margin-bottom:.5rem;}
+  .hero h1 .azul{color:var(--azul);}
+  .hero h1 .verde{color:var(--verde-dark);}
+  .hero p{font-size:14px;color:var(--gris);line-height:1.65;max-width:520px;margin:0 auto 1.5rem;}
+  .hero-stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .hero-stat-num{font-size:22px;font-weight:700;color:var(--azul);}
+  .hero-stat-lbl{font-size:11px;color:var(--gris-mid);text-transform:uppercase;letter-spacing:.05em;}
+
+  /* NOMBRE */
+  .nombre-wrap{background:var(--blanco);border-bottom:1px solid var(--gris-border);padding:1.25rem 2rem;}
+  .nombre-inner{max-width:760px;margin:0 auto;}
+  .nombre-label{font-size:12px;font-weight:600;color:var(--gris-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;}
+  .nombre-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .nombre-input{flex:1;min-width:180px;padding:10px 14px;border:1.5px solid var(--gris-border);border-radius:var(--r);font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border-color .15s;}
+  .nombre-input:focus{border-color:var(--azul);}
+  .municipio-input{width:200px;}
+
+  .progress-wrap{background:var(--blanco);padding:.75rem 2rem;border-bottom:1px solid var(--gris-border);position:sticky;top:0;z-index:10;}
+  .progress-row{display:flex;align-items:center;gap:10px;max-width:760px;margin:0 auto;}
+  .progress-label{font-size:12px;color:var(--gris-mid);white-space:nowrap;}
+  .progress-track{flex:1;height:5px;background:var(--gris-border);border-radius:3px;overflow:hidden;}
+  .progress-fill{height:5px;background:var(--azul);border-radius:3px;transition:width .3s ease;width:0%;}
+  .progress-pct{font-size:12px;font-weight:600;color:var(--azul);min-width:32px;text-align:right;}
+
+  .container{max-width:760px;margin:0 auto;padding:1.5rem 1rem 3rem;}
+
+  .dim-card{background:var(--blanco);border-radius:var(--rl);border:1.5px solid var(--gris-border);margin-bottom:1.25rem;overflow:hidden;}
+  .dim-header{display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;border-bottom:1px solid var(--gris-border);}
+  .dim-icon-wrap{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .dim-info{flex:1;}
+  .dim-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.2;}
+  .dim-sub{font-size:11px;color:var(--gris-mid);margin-top:2px;}
+  .dim-score{font-size:14px;font-weight:700;min-width:40px;text-align:right;}
+  .dim-body{padding:1.25rem;}
+
+  .question{margin-bottom:1.25rem;}
+  .question:last-child{margin-bottom:0;}
+  .q-text{font-size:13.5px;color:var(--text);font-weight:600;line-height:1.45;margin-bottom:.6rem;}
+  .q-num{display:inline-block;width:20px;height:20px;border-radius:50%;background:var(--azul);color:var(--blanco);font-size:10px;font-weight:700;text-align:center;line-height:20px;margin-right:6px;flex-shrink:0;}
+  .options{display:flex;flex-direction:column;gap:5px;}
+  .opt{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;border-radius:8px;border:1.5px solid var(--gris-border);cursor:pointer;transition:all .12s;background:var(--blanco);}
+  .opt:hover{border-color:var(--azul-mid);background:var(--azul-light);}
+  .opt.selected{background:var(--azul-light);border-color:var(--azul);}
+  .opt.selected .opt-text{color:var(--azul-dark);font-weight:600;}
+  .opt input[type="radio"]{margin-top:2px;accent-color:var(--azul);flex-shrink:0;}
+  .opt-text{font-size:13px;color:var(--gris);line-height:1.4;flex:1;}
+  .opt-pts{font-size:10px;color:var(--gris-mid);flex-shrink:0;margin-top:2px;white-space:nowrap;}
+  .opt.selected .opt-pts{color:var(--azul);}
+
+  .btn-wrap{margin-top:1.75rem;}
+  .btn-calcular{display:block;width:100%;padding:15px;background:var(--azul);color:var(--blanco);border:none;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;transition:background .15s;letter-spacing:.02em;font-family:inherit;}
+  .btn-calcular:hover{background:var(--azul-dark);}
+
+  /* RESULTADO */
+  .resultado{display:none;}
+  .resultado.visible{display:block;}
+  .result-hero{background:var(--blanco);border-radius:var(--rl);border:1.5px solid var(--gris-border);overflow:hidden;margin-bottom:1.25rem;}
+  .result-top{padding:2rem;text-align:center;border-bottom:1px solid var(--gris-border);}
+  .result-puntaje{font-size:56px;font-weight:700;line-height:1;margin-bottom:2px;}
+  .result-de{font-size:13px;color:var(--gris-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem;}
+  .result-perfil-chip{display:inline-block;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:.75rem;}
+  .result-nombre{font-size:22px;font-weight:700;color:var(--text);margin-bottom:.5rem;}
+  .result-desc{font-size:13.5px;color:var(--gris);line-height:1.65;max-width:480px;margin:0 auto;}
+  .result-dims{padding:1.5rem;}
+  .result-dims-title{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--gris-mid);margin-bottom:1rem;font-weight:600;}
+  .dim-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .dim-row-name{font-size:12px;color:var(--text);width:155px;flex-shrink:0;line-height:1.3;}
+  .bar-track{flex:1;height:7px;background:var(--gris-border);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:7px;border-radius:4px;transition:width .7s ease;}
+  .dim-row-pts{font-size:11px;color:var(--gris-mid);width:38px;text-align:right;flex-shrink:0;font-weight:600;}
+  .result-recs{background:var(--blanco);border-radius:var(--rl);border:1.5px solid var(--gris-border);padding:1.5rem;margin-bottom:1.25rem;}
+  .recs-title{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--gris-mid);margin-bottom:1rem;font-weight:600;}
+  .rec-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--gris-border);}
+  .rec-item:last-child{border-bottom:none;padding-bottom:0;}
+  .rec-num{width:24px;height:24px;border-radius:50%;background:var(--azul);color:var(--blanco);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .rec-text{font-size:13.5px;color:var(--text);line-height:1.55;}
+  .result-compromisos{background:var(--azul-light);border-radius:var(--rl);border:1.5px solid var(--azul-mid);padding:1.5rem;margin-bottom:1.25rem;}
+  .compromisos-title{font-size:13px;font-weight:700;color:var(--azul-dark);margin-bottom:.75rem;}
+  .compromiso{font-size:13px;color:var(--azul-dark);line-height:1.55;padding:5px 0 5px 12px;border-left:3px solid var(--azul);margin-bottom:6px;}
+  .compromiso:last-child{margin-bottom:0;}
+
+  /* ESTADO DE ENVÍO */
+  .send-status{border-radius:var(--r);padding:12px 16px;margin-bottom:1.25rem;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;}
+  .send-ok{background:#eef6e0;border:1.5px solid var(--verde-mid);color:var(--verde-dark);}
+  .send-err{background:#fff0f0;border:1.5px solid #f5b5b5;color:#b00;}
+  .send-loading{background:var(--azul-light);border:1.5px solid var(--azul-mid);color:var(--azul-dark);}
+  .spinner{width:16px;height:16px;border:2px solid var(--azul-mid);border-top-color:var(--azul);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .inst-footer{background:var(--blanco);border-radius:var(--rl);border:1.5px solid var(--gris-border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1.25rem;}
+  .footer-logos{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .footer-note{font-size:11px;color:var(--gris-mid);text-align:right;}
+  .btn-reiniciar{display:inline-block;padding:10px 22px;border-radius:var(--r);border:1.5px solid var(--gris-border);background:var(--blanco);font-size:13px;color:var(--gris);cursor:pointer;transition:background .15s;font-family:inherit;}
+  .btn-reiniciar:hover{background:var(--gris-light);}
+
+  @media(max-width:520px){
+    .inst-top,.inst-logos,.nombre-wrap{padding-left:1rem;padding-right:1rem;}
+    .hero{padding:1.75rem 1rem 1.5rem;}
+    .hero h1{font-size:22px;}
+    .dim-row-name{width:110px;font-size:11px;}
+    .progress-wrap{padding:.6rem 1rem;}
+    .municipio-input{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="inst-header">
+  <div class="inst-top">
+    <div class="prog-title"><span>Más Turismo</span><span>Más Negocios</span></div>
+    <div style="font-size:11px;color:rgba(255,255,255,.75);letter-spacing:.04em;">Módulo · Turismo Inteligente</div>
+  </div>
+  <div class="inst-logos">
+    <div class="inst-group">
+      <span class="inst-label">Lidera:</span>
+      <span class="logo-pill logo-azul"><span class="logo-dot" style="background:var(--verde)"></span>Comfenálco Antioquia</span>
+      <span class="logo-pill logo-azul"><span class="logo-dot" style="background:var(--azul)"></span>Clúster Turismo</span>
+      <span class="logo-pill logo-gris">C.C. Medellín para Antioquia</span>
+      <span class="logo-pill logo-gris">Gobernación de Antioquia</span>
+    </div>
+    <div class="inst-group">
+      <span class="inst-label">Aliados:</span>
+      <span class="logo-pill logo-gris">C.C. Aburrá Sur</span>
+      <span class="logo-pill logo-gris">C.C. Magdalena Medio y Nordeste</span>
+      <span class="logo-pill logo-verde">C.C. Oriente Antioqueño</span>
+      <span class="logo-pill logo-gris">C.C. Urabá</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="heroSection">
+  <div class="hero-badge">Módulo de diagnóstico</div>
+  <h1>¿Qué tan digital<br>es tu <span class="azul">empresa</span> <span class="verde">turística</span>?</h1>
+  <p>Responde 15 preguntas y descubre tu perfil de madurez digital. Recibirás recomendaciones concretas para el siguiente paso según tu realidad como operador en Antioquia.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">15</span><span class="hero-stat-lbl">Preguntas</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">5</span><span class="hero-stat-lbl">Dimensiones</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">~5'</span><span class="hero-stat-lbl">Minutos</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">4</span><span class="hero-stat-lbl">Perfiles</span></div>
+  </div>
+</div>
+
+<!-- NOMBRE Y MUNICIPIO -->
+<div class="nombre-wrap" id="nombreWrap">
+  <div class="nombre-inner">
+    <div class="nombre-label">Antes de comenzar</div>
+    <div class="nombre-row">
+      <input class="nombre-input" id="inputNombre" type="text" placeholder="Tu nombre y empresa (ej: Ana Gómez · Turismo Guatapé)" maxlength="80">
+      <input class="nombre-input municipio-input" id="inputMunicipio" type="text" placeholder="Municipio" maxlength="50">
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESO -->
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-row">
+    <span class="progress-label">Progreso</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+</div>
+
+<!-- FORMULARIO -->
+<div class="container" id="formulario">
+
+  <!-- DIM 1 -->
+  <div class="dim-card">
+    <div class="dim-header">
+      <div class="dim-icon-wrap" style="background:var(--azul-light)">🌐</div>
+      <div class="dim-info"><div class="dim-name">Presencia digital</div><div class="dim-sub">Cómo te encuentran los turistas en internet</div></div>
+      <div class="dim-score" id="sc1" style="color:var(--azul)">—</div>
+    </div>
+    <div class="dim-body">
+      <div class="question">
+        <div class="q-text"><span class="q-num">1</span>¿Tu empresa tiene perfil actualizado en Google Maps (Google Business Profile)?</div>
+        <div class="options" data-dim="1">
+          <label class="opt"><input type="radio" name="q1" value="0"><span class="opt-text">No tengo perfil en Google Maps</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q1" value="1"><span class="opt-text">Tengo perfil pero no lo he actualizado recientemente</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q1" value="2"><span class="opt-text">Tengo perfil actualizado con fotos, horarios y descripción</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q1" value="3"><span class="opt-text">Tengo perfil completo y respondo las reseñas regularmente</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num">2</span>¿Cómo es la presencia de tu empresa en redes sociales?</div>
+        <div class="options" data-dim="1">
+          <label class="opt"><input type="radio" name="q2" value="0"><span class="opt-text">No tenemos redes sociales activas</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q2" value="1"><span class="opt-text">Tenemos redes pero publicamos esporádicamente</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q2" value="2"><span class="opt-text">Publicamos al menos una vez por semana con contenido propio</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q2" value="3"><span class="opt-text">Tenemos calendario editorial, medimos resultados y generamos conversión</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num">3</span>¿Tu empresa tiene página web o canal de venta digital propio?</div>
+        <div class="options" data-dim="1">
+          <label class="opt"><input type="radio" name="q3" value="0"><span class="opt-text">No, solo WhatsApp o número de teléfono</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q3" value="1"><span class="opt-text">Tengo página básica o perfil en una OTA (Airbnb, Booking, etc.)</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q3" value="2"><span class="opt-text">Tengo web actualizada con información del servicio y contacto</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q3" value="3"><span class="opt-text">Tengo web con reservas en línea o catálogo de experiencias con precios</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIM 2 -->
+  <div class="dim-card">
+    <div class="dim-header">
+      <div class="dim-icon-wrap" style="background:#f0eeff">📲</div>
+      <div class="dim-info"><div class="dim-name">Gestión y comunicación con el cliente</div><div class="dim-sub">Cómo manejas reservas, consultas y seguimiento</div></div>
+      <div class="dim-score" id="sc2" style="color:#6b4fc8">—</div>
+    </div>
+    <div class="dim-body">
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#8b68e8">4</span>¿Cómo gestionas las reservas y solicitudes de los clientes?</div>
+        <div class="options" data-dim="2">
+          <label class="opt"><input type="radio" name="q4" value="0"><span class="opt-text">Por teléfono, de forma manual y sin registro sistemático</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q4" value="1"><span class="opt-text">Por WhatsApp y guardo los datos en una agenda o cuaderno</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q4" value="2"><span class="opt-text">Uso una hoja de Excel o Google Sheets para registrar reservas</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q4" value="3"><span class="opt-text">Uso un sistema o software específico para reservas y/o CRM</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#8b68e8">5</span>¿Usas WhatsApp Business con funciones avanzadas (catálogo, respuestas automáticas, etiquetas)?</div>
+        <div class="options" data-dim="2">
+          <label class="opt"><input type="radio" name="q5" value="0"><span class="opt-text">Solo uso WhatsApp personal</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q5" value="1"><span class="opt-text">Tengo WhatsApp Business pero sin configurar funciones adicionales</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q5" value="2"><span class="opt-text">Tengo catálogo y respuestas rápidas configuradas</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q5" value="3"><span class="opt-text">Uso etiquetas, automatizaciones y mido métricas de atención</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#8b68e8">6</span>¿Cómo haces seguimiento a clientes después de una experiencia o servicio?</div>
+        <div class="options" data-dim="2">
+          <label class="opt"><input type="radio" name="q6" value="0"><span class="opt-text">No hacemos seguimiento post-venta</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q6" value="1"><span class="opt-text">A veces enviamos un mensaje de agradecimiento personal</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q6" value="2"><span class="opt-text">Pedimos reseña en Google o redes y respondemos los comentarios</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q6" value="3"><span class="opt-text">Tenemos flujo definido: encuesta, reseña, oferta de regreso o referido</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIM 3 -->
+  <div class="dim-card">
+    <div class="dim-header">
+      <div class="dim-icon-wrap" style="background:#fff8e8">📊</div>
+      <div class="dim-info"><div class="dim-name">Uso de datos para decisiones</div><div class="dim-sub">Cuánto conoces a tus turistas y tu operación</div></div>
+      <div class="dim-score" id="sc3" style="color:#b07200">—</div>
+    </div>
+    <div class="dim-body">
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#e09a00">7</span>¿Sabes cuántos clientes han comprado tu servicio en el último año y de dónde venían?</div>
+        <div class="options" data-dim="3">
+          <label class="opt"><input type="radio" name="q7" value="0"><span class="opt-text">No tengo ese registro</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q7" value="1"><span class="opt-text">Tengo una idea aproximada pero no datos exactos</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q7" value="2"><span class="opt-text">Tengo registro en Excel o similar con datos básicos de clientes</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q7" value="3"><span class="opt-text">Analizo periódicamente mis datos de clientes para tomar decisiones</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#e09a00">8</span>¿Mides el rendimiento de tus publicaciones en redes sociales o de tu sitio web?</div>
+        <div class="options" data-dim="3">
+          <label class="opt"><input type="radio" name="q8" value="0"><span class="opt-text">No reviso estadísticas</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q8" value="1"><span class="opt-text">A veces veo cuántos "me gusta" o visitas tengo</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q8" value="2"><span class="opt-text">Reviso métricas básicas mensualmente (alcance, visitas, mensajes)</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q8" value="3"><span class="opt-text">Tengo indicadores clave y tomo decisiones basadas en esos datos</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#e09a00">9</span>¿Conoces qué temporadas son más rentables para tu negocio y por qué?</div>
+        <div class="options" data-dim="3">
+          <label class="opt"><input type="radio" name="q9" value="0"><span class="opt-text">No, opero según cómo lleguen los clientes</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q9" value="1"><span class="opt-text">Lo sé por intuición y experiencia pero no está documentado</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q9" value="2"><span class="opt-text">Tengo registro de temporadas y ajusto precios o servicios</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q9" value="3"><span class="opt-text">Planifico mi oferta con anticipación basándome en datos históricos</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIM 4 -->
+  <div class="dim-card">
+    <div class="dim-header">
+      <div class="dim-icon-wrap" style="background:#fff0e8">🤖</div>
+      <div class="dim-info"><div class="dim-name">Inteligencia artificial y automatización</div><div class="dim-sub">Qué tan cerca estás de las nuevas herramientas</div></div>
+      <div class="dim-score" id="sc4" style="color:#c44a1a">—</div>
+    </div>
+    <div class="dim-body">
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#d45520">10</span>¿Has usado alguna herramienta de inteligencia artificial (ChatGPT, Claude, Gemini, Canva AI)?</div>
+        <div class="options" data-dim="4">
+          <label class="opt"><input type="radio" name="q10" value="0"><span class="opt-text">Nunca la he usado</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q10" value="1"><span class="opt-text">La he probado por curiosidad pero no la uso en mi negocio</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q10" value="2"><span class="opt-text">La uso ocasionalmente para textos, imágenes o respuestas</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q10" value="3"><span class="opt-text">La uso regularmente y ha cambiado cómo hago tareas del negocio</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#d45520">11</span>¿Automatizas algún proceso en tu empresa (confirmaciones, recordatorios, respuestas)?</div>
+        <div class="options" data-dim="4">
+          <label class="opt"><input type="radio" name="q11" value="0"><span class="opt-text">Todo lo hacemos de forma manual</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q11" value="1"><span class="opt-text">Usamos respuestas rápidas en WhatsApp o algo básico similar</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q11" value="2"><span class="opt-text">Tenemos algún flujo automatizado (confirmaciones, recordatorios por correo)</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q11" value="3"><span class="opt-text">Automatizamos varios procesos y tenemos chatbot o asistente digital</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:#d45520">12</span>¿Has creado contenido (textos, imágenes, videos) con ayuda de herramientas digitales o IA?</div>
+        <div class="options" data-dim="4">
+          <label class="opt"><input type="radio" name="q12" value="0"><span class="opt-text">No, todo el contenido lo creamos de forma tradicional</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q12" value="1"><span class="opt-text">Usamos Canva para diseños básicos</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q12" value="2"><span class="opt-text">Usamos Canva + IA para textos o imágenes ocasionalmente</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q12" value="3"><span class="opt-text">Tenemos flujo de creación de contenido con múltiples herramientas de IA</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIM 5 -->
+  <div class="dim-card">
+    <div class="dim-header">
+      <div class="dim-icon-wrap" style="background:var(--verde-light)">🌿</div>
+      <div class="dim-info"><div class="dim-name">Sostenibilidad y reputación digital</div><div class="dim-sub">Cómo gestionas tu imagen y responsabilidad online</div></div>
+      <div class="dim-score" id="sc5" style="color:var(--verde-dark)">—</div>
+    </div>
+    <div class="dim-body">
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:var(--verde)">13</span>¿Monitoreas las reseñas y opiniones que dejan los turistas sobre tu empresa en internet?</div>
+        <div class="options" data-dim="5">
+          <label class="opt"><input type="radio" name="q13" value="0"><span class="opt-text">No reviso lo que dicen en internet</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q13" value="1"><span class="opt-text">A veces reviso pero no tengo un proceso definido</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q13" value="2"><span class="opt-text">Reviso regularmente y respondo las reseñas más importantes</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q13" value="3"><span class="opt-text">Monitoreo activamente, respondo todo y uso comentarios para mejorar</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:var(--verde)">14</span>¿Comunicas en tus canales digitales prácticas de sostenibilidad o responsabilidad de tu empresa?</div>
+        <div class="options" data-dim="5">
+          <label class="opt"><input type="radio" name="q14" value="0"><span class="opt-text">No comunicamos temas de sostenibilidad</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q14" value="1"><span class="opt-text">Mencionamos algo esporádicamente pero no es parte de nuestra comunicación</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q14" value="2"><span class="opt-text">Incluimos mensajes de sostenibilidad regularmente en nuestro contenido</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q14" value="3"><span class="opt-text">La sostenibilidad es parte central de nuestra propuesta de valor digital</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <div class="q-text"><span class="q-num" style="background:var(--verde)">15</span>¿Sabes qué dicen los turistas cuando te buscan en Google o en plataformas como TripAdvisor?</div>
+        <div class="options" data-dim="5">
+          <label class="opt"><input type="radio" name="q15" value="0"><span class="opt-text">No, ni sé si aparezco en esas plataformas</span><span class="opt-pts">0 pts</span></label>
+          <label class="opt"><input type="radio" name="q15" value="1"><span class="opt-text">Sé que existo en alguna pero no reviso con frecuencia</span><span class="opt-pts">1 pt</span></label>
+          <label class="opt"><input type="radio" name="q15" value="2"><span class="opt-text">Reviso periódicamente y sé cuál es mi puntuación promedio</span><span class="opt-pts">2 pts</span></label>
+          <label class="opt"><input type="radio" name="q15" value="3"><span class="opt-text">Gestiono activamente mi reputación online como parte de la estrategia</span><span class="opt-pts">3 pts</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-wrap">
+    <button class="btn-calcular" id="btnCalc" onclick="calcular()">Ver mi perfil de madurez digital →</button>
+  </div>
+</div>
+
+<!-- RESULTADO -->
+<div class="container resultado" id="resultado">
+
+  <div id="sendStatus"></div>
+
+  <div class="result-hero">
+    <div class="result-top">
+      <div class="result-puntaje" id="rPuntaje" style="color:var(--azul)">0</div>
+      <div class="result-de">de 45 puntos</div>
+      <div class="result-perfil-chip" id="rChip">—</div>
+      <div class="result-nombre" id="rNombre">—</div>
+      <div class="result-desc" id="rDesc">—</div>
+    </div>
+    <div class="result-dims">
+      <div class="result-dims-title">Puntaje por dimensión</div>
+      <div id="rBars"></div>
+    </div>
+  </div>
+
+  <div class="result-recs">
+    <div class="recs-title">Acciones recomendadas para ti</div>
+    <div id="rRecs"></div>
+  </div>
+
+  <div class="result-compromisos">
+    <div class="compromisos-title">Tu compromiso para los próximos 15 días</div>
+    <div id="rPasos"></div>
+  </div>
+
+  <div class="inst-footer">
+    <div class="footer-logos">
+      <span class="logo-pill logo-azul" style="font-size:11px"><span class="logo-dot" style="background:var(--verde)"></span>Comfenálco Antioquia</span>
+      <span class="logo-pill logo-azul" style="font-size:11px"><span class="logo-dot" style="background:var(--azul)"></span>Clúster Turismo</span>
+      <span class="logo-pill logo-gris" style="font-size:11px">C.C. Medellín</span>
+      <span class="logo-pill logo-gris" style="font-size:11px">Gobernación de Antioquia</span>
+      <span class="logo-pill logo-verde" style="font-size:11px">C.C. Oriente Antioqueño</span>
+    </div>
+    <div class="footer-note">Más Turismo Más Negocios<br>Módulo Turismo Inteligente</div>
+  </div>
+
+  <div style="text-align:center;padding-bottom:1rem">
+    <button class="btn-reiniciar" onclick="reiniciar()">← Volver a responder</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// ⚙️  REEMPLAZA ESTA URL con la de tu Apps Script
+// ══════════════════════════════════════════════
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwnY_4QBZI5FZOpYX9S4tPp5wo2rl6WfKQxeqfuy_4o7984yTHcNQFr4nOyFePQy3z5w/exec";
+// ══════════════════════════════════════════════
+
+const dims=[
+  {name:"Presencia digital",color:"#156DC9",qs:[1,2,3]},
+  {name:"Gestión con el cliente",color:"#8b68e8",qs:[4,5,6]},
+  {name:"Uso de datos",color:"#e09a00",qs:[7,8,9]},
+  {name:"IA y automatización",color:"#d45520",qs:[10,11,12]},
+  {name:"Sostenibilidad digital",color:"#82B638",qs:[13,14,15]}
+];
+const perfiles=[
+  {min:0,max:9,nombre:"Inicio digital",chip:"Perfil 1 · Inicio digital",chipBg:"#e8f2fc",chipColor:"#0e4f96",desc:"Tu empresa tiene una presencia digital limitada. Muchas empresas exitosas de turismo en Antioquia están en este punto de partida. La buena noticia es que los primeros pasos generan el mayor impacto: con acciones simples y gratuitas puedes transformar cómo te encuentran los turistas.",color:"#156DC9"},
+  {min:10,max:20,nombre:"Adoptante temprana",chip:"Perfil 2 · Adoptante temprana",chipBg:"#f0eeff",chipColor:"#5a3faa",desc:"Ya tienes bases digitales funcionando y conoces las herramientas, pero aún no las usas de forma estratégica. Estás en el momento ideal para conectar los puntos y hacer que cada canal trabaje en función de conseguirte más reservas.",color:"#8b68e8"},
+  {min:21,max:31,nombre:"Empresa conectada",chip:"Perfil 3 · Empresa conectada",chipBg:"#fff8e8",chipColor:"#a06800",desc:"Tu empresa usa activamente herramientas digitales y ve resultados concretos. El siguiente nivel es conectar los datos entre canales, automatizar más procesos y hacer que la tecnología trabaje para ti incluso cuando no estás presente.",color:"#e09a00"},
+  {min:32,max:45,nombre:"Empresa inteligente",chip:"Perfil 4 · Empresa inteligente",chipBg:"#eef6e0",chipColor:"#5a8227",desc:"Eres una referencia de madurez digital en el sector turístico de Antioquia. Usas datos para decidir, automatizas procesos y gestionas tu reputación activamente. Tu oportunidad está en la innovación continua y en compartir aprendizajes con el ecosistema regional.",color:"#82B638"}
+];
+const recs={
+  lp:"Crea o actualiza tu perfil en Google Business Profile: es gratuito, tarda 30 minutos y el impacto en visibilidad es inmediato para turistas que buscan en Antioquia.",
+  lg:"Instala WhatsApp Business y configura el mensaje de bienvenida, el horario de atención y el catálogo básico de tus servicios. Es el canal más directo con el viajero colombiano.",
+  ld:"Abre una hoja de Google Sheets y empieza a registrar: nombre del cliente, servicio, fecha y origen. Con 3 meses de datos ya puedes tomar mejores decisiones comerciales.",
+  li:"Prueba Claude.ai o ChatGPT hoy mismo: pide que escriba la descripción de tu experiencia turística más popular. Es gratuito y el resultado te sorprenderá.",
+  lr:"Busca el nombre de tu empresa en Google ahora mismo. Si no apareces o hay reseñas sin respuesta, eso es lo primero que debes resolver esta semana.",
+  hp:"Conecta tu Google Business Profile con tus redes y asegura que el tono y la información sean consistentes en todos los canales digitales.",
+  hg:"Explora Kommo, HubSpot gratuito o Clientify para organizar mejor el seguimiento a tus clientes y potenciar el cierre de ventas.",
+  hd:"Usa Claude o ChatGPT para analizar tus reseñas de Google: cópialas y pide que identifique patrones de lo que más valoran tus turistas.",
+  hi:"Explora flujos de automatización con ManyChat o Zapier para conectar tu WhatsApp con tu registro de clientes sin trabajo manual.",
+  hr:"Considera certificaciones de sostenibilidad turística como NTS-TS 003 para formalizar y comunicar mejor tu propuesta de valor diferenciada."
+};
+const pasos=[
+  ["Crear o reclamar tu perfil en Google Business Profile (gratuito, 30 min).","Instalar WhatsApp Business y configurar el mensaje de bienvenida.","Abrir una hoja de Google Sheets para registrar tus próximos clientes."],
+  ["Completar 3 funciones avanzadas de WhatsApp Business: catálogo, etiquetas y respuestas rápidas.","Crear un registro básico de clientes con origen y servicio contratado.","Probar ChatGPT o Claude para escribir los textos de tus servicios."],
+  ["Revisar tus métricas de redes sociales y definir 2 indicadores clave que medirás cada mes.","Implementar un flujo de seguimiento post-venta para solicitar reseñas a tus clientes.","Explorar una herramienta de automatización para un proceso repetitivo de tu operación."],
+  ["Documentar tu proceso digital para compartirlo con el equipo y estandarizarlo.","Explorar una integración entre tus herramientas (CRM + WhatsApp + datos).","Participar activamente en el ecosistema de turismo inteligente de Antioquia."]
+];
+
+function gs(q){const e=document.querySelector(`input[name="q${q}"]:checked`);return e?parseInt(e.value):-1;}
+function dsc(qs){return qs.reduce((s,q)=>{const v=gs(q);return s+(v>=0?v:0);},0);}
+
+function upd(){
+  let n=0;
+  for(let i=1;i<=15;i++) if(document.querySelector(`input[name="q${i}"]:checked`)) n++;
+  const pct=Math.round(n/15*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressPct').textContent=pct+'%';
+  dims.forEach((d,i)=>{
+    const allDone=d.qs.every(q=>document.querySelector(`input[name="q${q}"]:checked`));
+    const el=document.getElementById('sc'+(i+1));
+    el.textContent=allDone?dsc(d.qs)+'/9':'—';
+  });
+}
+
+document.querySelectorAll('.opt input[type="radio"]').forEach(inp=>{
+  inp.addEventListener('change',function(){
+    const grp=this.closest('.options');
+    grp.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+    this.closest('.opt').classList.add('selected');
+    upd();
+  });
+});
+
+function enviarASheets(payload){
+  const box=document.getElementById('sendStatus');
+  box.innerHTML=`<div class="send-status send-loading"><div class="spinner"></div>Guardando tus resultados…</div>`;
+
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(()=>{
+    box.innerHTML=`<div class="send-status send-ok">✅ Resultados guardados correctamente. ¡Gracias por participar!</div>`;
+  })
+  .catch(()=>{
+    box.innerHTML=`<div class="send-status send-err">⚠️ No se pudo guardar la respuesta. Verifica tu conexión a internet.</div>`;
+  });
+}
+
+function calcular(){
+  const missing=[];
+  for(let i=1;i<=15;i++) if(!document.querySelector(`input[name="q${i}"]:checked`)) missing.push(i);
+  if(missing.length>0){alert('Por favor responde todas las preguntas antes de continuar.\n\nPreguntas pendientes: '+missing.join(', '));return;}
+
+  const nombre=document.getElementById('inputNombre').value.trim()||'Sin nombre';
+  const municipio=document.getElementById('inputMunicipio').value.trim()||'Sin municipio';
+  const total=dims.reduce((s,d)=>s+dsc(d.qs),0);
+  const p=perfiles.find(x=>total>=x.min&&total<=x.max);
+  const pi=perfiles.indexOf(p);
+  const dimScores=dims.map(d=>dsc(d.qs));
+
+  // Mostrar resultado en pantalla
+  document.getElementById('rPuntaje').textContent=total;
+  document.getElementById('rPuntaje').style.color=p.color;
+  document.getElementById('rChip').textContent=p.chip;
+  document.getElementById('rChip').style.background=p.chipBg;
+  document.getElementById('rChip').style.color=p.chipColor;
+  document.getElementById('rNombre').textContent=p.nombre;
+  document.getElementById('rDesc').textContent=p.desc;
+
+  let barsHtml='';
+  dims.forEach((d,i)=>{
+    const sc=dimScores[i];
+    const pct=Math.round(sc/9*100);
+    barsHtml+=`<div class="dim-row"><div class="dim-row-name">${d.name}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${d.color}"></div></div><div class="dim-row-pts" style="color:${d.color}">${sc}/9</div></div>`;
+  });
+  document.getElementById('rBars').innerHTML=barsHtml;
+
+  const keys=['p','g','d','i','r'];
+  document.getElementById('rRecs').innerHTML=dims.map((d,i)=>{
+    const sc=dimScores[i];
+    return `<div class="rec-item"><div class="rec-num">${i+1}</div><div class="rec-text">${sc<=4?recs['l'+keys[i]]:recs['h'+keys[i]]}</div></div>`;
+  }).join('');
+
+  document.getElementById('rPasos').innerHTML=pasos[pi].map(s=>
+    `<div class="compromiso">→ ${s}</div>`
+  ).join('');
+
+  // Cambiar vista
+  document.getElementById('formulario').style.display='none';
+  document.getElementById('heroSection').style.display='none';
+  document.getElementById('progressWrap').style.display='none';
+  document.getElementById('nombreWrap').style.display='none';
+  document.getElementById('resultado').classList.add('visible');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // Enviar a Google Sheets
+  const now=new Date();
+  enviarASheets({
+    timestamp: now.toLocaleString('es-CO',{timeZone:'America/Bogota'}),
+    nombre,
+    municipio,
+    perfil: p.nombre,
+    puntajeTotal: total,
+    presenciaDigital: dimScores[0],
+    gestionCliente: dimScores[1],
+    usoDatos: dimScores[2],
+    iaAutomatizacion: dimScores[3],
+    sostenibilidad: dimScores[4],
+    respuestas: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(q=>gs(q)).join(',')
+  });
+}
+
+function reiniciar(){
+  document.querySelectorAll('input[type="radio"]').forEach(i=>i.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  dims.forEach((d,i)=>{document.getElementById('sc'+(i+1)).textContent='—';});
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('progressPct').textContent='0%';
+  document.getElementById('sendStatus').innerHTML='';
+  document.getElementById('formulario').style.display='block';
+  document.getElementById('heroSection').style.display='block';
+  document.getElementById('progressWrap').style.display='block';
+  document.getElementById('nombreWrap').style.display='block';
+  document.getElementById('resultado').classList.remove('visible');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
