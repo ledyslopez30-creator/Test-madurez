@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramientas Digitales · Más Turismo Más Negocios</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #156DC9;
+    --azul-dk: #0e4f96;
+    --azul-lt: #e8f2fc;
+    --azul-mid: #b8d5f4;
+    --verde: #82B638;
+    --verde-dk: #5a8227;
+    --verde-lt: #eef6e0;
+    --amber: #BA7517;
+    --amber-lt: #FAEEDA;
+    --purple: #534AB7;
+    --purple-lt: #EEEDFE;
+    --coral: #993C1D;
+    --coral-lt: #FAECE7;
+    --bg: #F4F6FA;
+    --surface: #ffffff;
+    --text: #111827;
+    --text-2: #4B5563;
+    --text-3: #9CA3AF;
+    --border: rgba(0,0,0,0.08);
+    --border-2: rgba(0,0,0,0.14);
+    --r: 12px;
+    --rl: 16px;
+    --rxl: 20px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--azul);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(21,109,201,0.18);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+  }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .brand-name span { color: rgba(255,255,255,0.7); font-weight: 400; }
+  .brand-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.04em;
+    margin-top: 1px;
+  }
+  .header-count {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+  }
+  .header-count strong { color: #fff; font-weight: 600; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-dk) 100%);
+    padding: 4rem 2rem 3.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content { position: relative; max-width: 680px; margin: 0 auto; }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(130,182,56,0.2);
+    border: 1px solid rgba(130,182,56,0.4);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #b8e07a;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 em { color: #a3d460; font-style: normal; }
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    display: block;
+  }
+  .stat-lbl { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 3px; display: block; }
+
+  /* ── INSTITUCIONES ── */
+  .inst-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 2rem;
+  }
+  .inst-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .inst-group { display: flex; align-items: center; gap: 8px; }
+  .inst-lbl { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+  .inst-sep { width: 1px; height: 20px; background: var(--border-2); flex-shrink: 0; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    border: 1px solid;
+  }
+  .pill-azul { color: var(--azul-dk); border-color: var(--azul-mid); background: var(--azul-lt); }
+  .pill-verde { color: var(--verde-dk); border-color: #c4e091; background: var(--verde-lt); }
+  .pill-gris { color: var(--text-2); border-color: var(--border-2); background: #f9f9f9; }
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* ── MAIN ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+  /* ── FILTROS ── */
+  .filters-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .filter-label { font-size: 12px; color: var(--text-3); font-weight: 500; letter-spacing: 0.04em; white-space: nowrap; }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fbtn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border-2);
+    background: var(--surface);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .fbtn:hover { border-color: var(--azul-mid); color: var(--azul); background: var(--azul-lt); }
+  .fbtn.on { background: var(--azul); border-color: var(--azul); color: #fff; }
+  .fbtn .fcount {
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .fbtn:not(.on) .fcount { background: var(--border); color: var(--text-3); }
+
+  /* ── SEARCH ── */
+  .search-wrap { position: relative; margin-bottom: 1.75rem; }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3);
+    font-size: 15px;
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    max-width: 420px;
+    padding: 10px 14px 10px 40px;
+    border: 1.5px solid var(--border-2);
+    border-radius: var(--r);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--surface);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .search-input:focus { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(21,109,201,0.1); }
+  .search-input::placeholder { color: var(--text-3); }
+
+  /* ── SECTION LABEL ── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 .875rem;
+  }
+  .section-head:first-child { margin-top: 0; }
+  .section-icon {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .section-count { font-size: 11px; color: var(--text-3); }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border-radius: var(--rl);
+    border: 1.5px solid var(--border);
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    overflow: hidden;
+    animation: fadeUp 0.3s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); border-color: var(--border-2); }
+  .card.open { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(21,109,201,0.1); }
+
+  .card-accent { height: 4px; width: 100%; }
+  .card-body { padding: 16px 16px 14px; }
+  .card-badges { display: flex; align-items: center; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .badge-free { background: var(--verde-lt); color: var(--verde-dk); }
+  .badge-combo { background: var(--amber-lt); color: var(--amber); }
+  .badge-co { background: #e8f4fd; color: #1565a0; }
+
+  .card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .card-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .card-sub { font-size: 12px; color: var(--text-3); line-height: 1.4; }
+  .card-nivel {
+    font-size: 11px;
+    color: var(--text-3);
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* EXPAND ARROW */
+  .card-arrow {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.2s, background 0.15s;
+    font-size: 12px;
+    color: var(--text-3);
+  }
+  .card.open .card-arrow { transform: rotate(180deg); background: var(--azul-lt); color: var(--azul); }
+
+  /* DETALLE */
+  .card-detail {
+    display: none;
+    padding: 0 16px 16px;
+    animation: expandIn 0.2s ease;
+  }
+  @keyframes expandIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card.open .card-detail { display: block; }
+  .detail-sep { height: 1px; background: var(--border); margin-bottom: 14px; }
+  .detail-row { margin-bottom: 10px; }
+  .detail-row:last-child { margin-bottom: 0; }
+  .detail-lbl {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 3px;
+  }
+  .detail-val { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+  .combo-note {
+    background: var(--amber-lt);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 6px 6px 0;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #6b3a0a;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+  .combo-note strong { font-weight: 600; color: var(--amber); }
+
+  /* EMPTY */
+  .empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-3);
+  }
+  .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .empty p { font-size: 14px; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logos { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .footer-note { font-size: 11px; color: var(--text-3); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .hero { padding: 2.5rem 1.25rem 2rem; }
+    .main { padding: 1.25rem 1rem 3rem; }
+    .inst-bar { padding: 10px 1rem; }
+    .grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    .stat-num { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="brand-mark">MT</div>
+      <div class="brand-text">
+        <div class="brand-name">Más Turismo <span>Más Negocios</span></div>
+        <div class="brand-sub">Módulo · Turismo Inteligente</div>
+      </div>
+    </div>
+    <div class="header-count">
+      <strong id="visibleCount">20</strong> herramientas
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Objetivo 1 · Competitividad digital</div>
+    <h1>Herramientas digitales para <em>agencias de viajes</em></h1>
+    <p>Explora el ecosistema de tecnología que puede transformar la operación, las ventas y la atención al cliente de tu empresa turística.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">20</span><span class="stat-lbl">Herramientas</span></div>
+      <div class="stat"><span class="stat-num">6</span><span class="stat-lbl">Categorías</span></div>
+      <div class="stat"><span class="stat-num">12</span><span class="stat-lbl">Versiones gratuitas</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-lbl">Empresas colombianas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUCIONES -->
+<div class="inst-bar">
+  <div class="inst-inner">
+    <div class="inst-group">
+      <span class="inst-lbl">Lidera</span>
+      <span class="pill pill-azul"><span class="pill-dot" style="background:var(--verde)"></span>Comfenálco Antioquia</span>
+      <span class="pill pill-azul"><span class="pill-dot" style="background:var(--azul)"></span>Clúster Turismo</span>
+      <span class="pill pill-gris">C.C. Medellín para Antioquia</span>
+      <span class="pill pill-gris">Gobernación de Antioquia</span>
+    </div>
+    <div class="inst-sep"></div>
+    <div class="inst-group">
+      <span class="inst-lbl">Aliados</span>
+      <span class="pill pill-gris">C.C. Aburrá Sur</span>
+      <span class="pill pill-gris">C.C. Magdalena Medio y Nordeste</span>
+      <span class="pill pill-verde">C.C. Oriente Antioqueño</span>
+      <span class="pill pill-gris">C.C. Urabá</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- BÚSQUEDA + FILTROS -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="searchInput" type="text" placeholder="Buscar herramienta…" autocomplete="off">
+  </div>
+
+  <div class="filters-wrap">
+    <span class="filter-label">Filtrar por</span>
+    <div class="filters" id="filters">
+      <button class="fbtn on" data-cat="all">Todas <span class="fcount" id="fc-all">20</span></button>
+      <button class="fbtn" data-cat="comercializacion">Comercialización <span class="fcount" id="fc-comercializacion">3</span></button>
+      <button class="fbtn" data-cat="clientes">CRM y clientes <span class="fcount" id="fc-clientes">5</span></button>
+      <button class="fbtn" data-cat="wa">Automatización WA <span class="fcount" id="fc-wa">4</span></button>
+      <button class="fbtn" data-cat="operacion">Operación <span class="fcount" id="fc-operacion">3</span></button>
+      <button class="fbtn" data-cat="contenido">Contenido y marketing <span class="fcount" id="fc-contenido">3</span></button>
+      <button class="fbtn" data-cat="datos">Datos y analítica <span class="fcount" id="fc-datos">3</span></button>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div id="content"></div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logos">
+      <span class="pill pill-azul" style="font-size:11px"><span class="pill-dot" style="background:var(--verde)"></span>Comfenálco Antioquia</span>
+      <span class="pill pill-azul" style="font-size:11px"><span class="pill-dot" style="background:var(--azul)"></span>Clúster Turismo</span>
+      <span class="pill pill-verde" style="font-size:11px">C.C. Oriente Antioqueño</span>
+      <span class="pill pill-gris" style="font-size:11px">C.C. Aburrá Sur</span>
+      <span class="pill pill-gris" style="font-size:11px">C.C. Magdalena Medio y Nordeste</span>
+      <span class="pill pill-gris" style="font-size:11px">C.C. Urabá</span>
+    </div>
+    <div class="footer-note">Más Turismo Más Negocios · Gobernación de Antioquia</div>
+  </div>
+</footer>
+
+<script>
+const TOOLS = [
+  {cat:"comercializacion",accentColor:"#156DC9",iconBg:"#E6F1FB",iconColor:"#185FA5",icon:"🌐",
+   name:"Google Business Profile",sub:"Visibilidad en búsquedas y mapas",free:true,co:false,combo:false,
+   que:"Tu ficha de empresa en Google Maps y búsquedas locales de turismo.",
+   para:"Que los turistas te encuentren cuando buscan agencias en tu ciudad o municipio.",
+   como:"Crea o reclama tu perfil, sube fotos reales y responde reseñas. Tarda 30 minutos.",
+   nivel:"Básico · Gratis · Inmediato"},
+  {cat:"comercializacion",accentColor:"#156DC9",iconBg:"#E6F1FB",iconColor:"#185FA5",icon:"🏪",
+   name:"OTAs (Viator, GetYourGuide, Airbnb)",sub:"Canales de venta en línea a turistas globales",free:false,co:false,combo:false,
+   que:"Plataformas donde millones de viajeros buscan y reservan experiencias y tours.",
+   para:"Aumentar visibilidad y recibir reservas de turistas que todavía no te conocen.",
+   como:"Crea tu ficha en Viator o GetYourGuide para tours. Airbnb Experiences para servicios únicos.",
+   nivel:"Intermedio · Comisión por venta (15–30%)"},
+  {cat:"comercializacion",accentColor:"#156DC9",iconBg:"#E6F1FB",iconColor:"#185FA5",icon:"📋",
+   name:"Bokun / Fareharbor",sub:"Motor de reservas y pagos en línea",free:false,co:false,combo:false,
+   que:"Sistema de reservas que conecta tu web con OTAs simultáneamente.",
+   para:"Recibir reservas y pagos 24/7 sin intermediar manualmente cada consulta.",
+   como:"Se integra en tu página web o Instagram. Sincroniza disponibilidad en todos los canales.",
+   nivel:"Intermedio · Desde USD 49/mes"},
+
+  {cat:"clientes",accentColor:"#3B6D11",iconBg:"#EAF3DE",iconColor:"#3B6D11",icon:"👥",
+   name:"Kommo",sub:"CRM con integración nativa a WhatsApp",free:false,co:false,combo:false,
+   que:"CRM para ventas conversacionales que integra WhatsApp, Instagram y email en un panel.",
+   para:"Ver el embudo completo de ventas y automatizar seguimientos sin perder ningún prospecto.",
+   como:"Conectas tu WhatsApp Business. Cada conversación se convierte en una oportunidad gestionable.",
+   nivel:"Intermedio · Desde USD 15/mes"},
+  {cat:"clientes",accentColor:"#3B6D11",iconBg:"#EAF3DE",iconColor:"#3B6D11",icon:"👥",
+   name:"Clientify",sub:"CRM en español con soporte Latam",free:false,co:false,combo:false,
+   que:"CRM hispanohablante con automatización de marketing, pipeline de ventas e integración multicanal.",
+   para:"Gestionar clientes, campañas y seguimientos desde una sola plataforma en español.",
+   como:"Importas tus contactos, conectas WhatsApp y correo, configuras el embudo de venta.",
+   nivel:"Intermedio · Desde USD 29/mes"},
+  {cat:"clientes",accentColor:"#3B6D11",iconBg:"#EAF3DE",iconColor:"#3B6D11",icon:"👥",
+   name:"HubSpot CRM",sub:"CRM gratuito con funciones avanzadas",free:true,co:false,combo:false,
+   que:"Uno de los CRM más completos del mercado con versión gratuita robusta.",
+   para:"Registrar clientes, hacer seguimiento de ventas y enviar correos automatizados sin costo.",
+   como:"Creas tu cuenta gratis, importas contactos y usas el pipeline visual para cotizaciones.",
+   nivel:"Básico-Intermedio · Gratis / desde USD 20/mes"},
+  {cat:"clientes",accentColor:"#3B6D11",iconBg:"#EAF3DE",iconColor:"#3B6D11",icon:"✈️",
+   name:"TravelWorks / Travelport",sub:"Software especializado en agencias de viajes",free:false,co:false,combo:false,
+   que:"Plataforma de gestión específica para agencias: GDS, emisión de tiquetes y CRM integrado.",
+   para:"Centralizar la operación completa de la agencia con acceso a inventario de aerolíneas y hoteles.",
+   como:"Requiere implementación con proveedor local. Ideal para agencias con volumen medio-alto.",
+   nivel:"Avanzado · Cotización por agencia"},
+  {cat:"clientes",accentColor:"#3B6D11",iconBg:"#EAF3DE",iconColor:"#3B6D11",icon:"📧",
+   name:"Mailchimp / Brevo",sub:"Email marketing y fidelización de clientes",free:true,co:false,combo:false,
+   que:"Plataformas para enviar correos masivos a tu base de clientes de forma profesional.",
+   para:"Mantener contacto con clientes anteriores y activar promociones de temporada.",
+   como:"Importas tu lista, diseñas una plantilla y programas envíos automáticos.",
+   nivel:"Básico · Gratis hasta 500 contactos"},
+
+  {cat:"wa",accentColor:"#BA7517",iconBg:"#FAEEDA",iconColor:"#854F0B",icon:"💬",
+   name:"B2Chat",sub:"Multi-agente y automatización para WhatsApp",free:false,co:true,combo:true,
+   que:"Plataforma colombiana que conecta WhatsApp Business API con múltiples agentes y chatbots.",
+   para:"Atender varios clientes simultáneamente sin cruzar conversaciones entre el equipo.",
+   como:"Se conecta a tu número de WhatsApp Business API. Varios asesores desde un panel unificado.",
+   pair:"Ideal junto a Kommo o Clientify: B2Chat maneja la conversación, el CRM guarda el historial y gestiona el pipeline.",
+   nivel:"Intermedio · Empresa colombiana · Desde USD 30/mes"},
+  {cat:"wa",accentColor:"#BA7517",iconBg:"#FAEEDA",iconColor:"#854F0B",icon:"💬",
+   name:"Treble.ai",sub:"Automatización y chatbots sin código para WhatsApp",free:false,co:false,combo:true,
+   que:"Plataforma latinoamericana para crear flujos automatizados de WhatsApp visualmente, sin código.",
+   para:"Responder consultas frecuentes automáticamente y calificar leads antes de pasar al asesor humano.",
+   como:"Diseñas el flujo visualmente (si escribe X, responde Y). Se conecta al CRM con los datos.",
+   pair:"Se integra nativamente con HubSpot y Kommo. Maneja la primera capa de atención y pasa leads calificados al CRM.",
+   nivel:"Intermedio · Desde USD 50/mes"},
+  {cat:"wa",accentColor:"#BA7517",iconBg:"#FAEEDA",iconColor:"#854F0B",icon:"💬",
+   name:"ManyChat",sub:"Chatbots para WhatsApp e Instagram",free:true,co:false,combo:true,
+   que:"Constructor visual de chatbots para WhatsApp, Instagram DMs y Facebook Messenger.",
+   para:"Automatizar respuestas a comentarios de Instagram y capturar leads desde redes sociales.",
+   como:"Creas flujos con bloques visuales sin código. Conectas tu Instagram o WhatsApp Business.",
+   pair:"Compatible con HubSpot y Mailchimp. Captura leads desde redes y los envía directo al CRM.",
+   nivel:"Básico-Intermedio · Gratis limitado / desde USD 15/mes"},
+  {cat:"wa",accentColor:"#BA7517",iconBg:"#FAEEDA",iconColor:"#854F0B",icon:"💬",
+   name:"Whaticket",sub:"Multi-agente WhatsApp para equipos pequeños",free:false,co:false,combo:true,
+   que:"Plataforma latinoamericana para gestionar WhatsApp con varios agentes y reportes de atención.",
+   para:"Que todo el equipo atienda desde un solo número sin pisarse las conversaciones.",
+   como:"Un número de WhatsApp, varios asesores conectados. Incluye chatbot básico y reportes.",
+   pair:"Funciona bien junto a Clientify o HubSpot: las conversaciones se registran y el CRM actualiza el estado del cliente.",
+   nivel:"Básico-Intermedio · Desde USD 20/mes"},
+
+  {cat:"operacion",accentColor:"#854F0B",iconBg:"#FFF8EE",iconColor:"#854F0B",icon:"📱",
+   name:"WhatsApp Business",sub:"Canal base de atención y ventas",free:true,co:false,combo:false,
+   que:"Versión profesional de WhatsApp con catálogo, automatizaciones básicas y etiquetas por cliente.",
+   para:"Atender consultas, enviar cotizaciones y confirmar reservas de forma organizada.",
+   como:"Configura catálogo de servicios, mensaje de bienvenida, horario y etiquetas por etapa de venta.",
+   nivel:"Básico · Gratis · Punto de partida"},
+  {cat:"operacion",accentColor:"#854F0B",iconBg:"#FFF8EE",iconColor:"#854F0B",icon:"📁",
+   name:"Google Workspace",sub:"Correo profesional, calendarios y documentos",free:false,co:false,combo:false,
+   que:"Suite completa: Gmail con tu dominio, Drive, Docs, Sheets, Calendar y Meet.",
+   para:"Centralizar la operación del equipo, compartir itinerarios y tener correo profesional.",
+   como:"Activas el plan básico, migras tu correo (@tuagencia.com) y compartes calendarios.",
+   nivel:"Básico · Desde USD 6/mes"},
+  {cat:"operacion",accentColor:"#854F0B",iconBg:"#FFF8EE",iconColor:"#854F0B",icon:"✅",
+   name:"Trello / Notion",sub:"Gestión de tareas y documentación interna",free:true,co:false,combo:false,
+   que:"Herramientas para organizar tareas, procesos y documentación del equipo de trabajo.",
+   para:"Que nada se pierda: itinerarios, contactos de proveedores, checklists de operación.",
+   como:"Trello para tableros visuales de tareas. Notion para documentar procesos y base de conocimiento.",
+   nivel:"Básico · Gratis"},
+
+  {cat:"contenido",accentColor:"#534AB7",iconBg:"#EEEDFE",iconColor:"#534AB7",icon:"🎨",
+   name:"Canva",sub:"Diseño gráfico sin conocimientos técnicos",free:true,co:false,combo:false,
+   que:"Herramienta de diseño visual con miles de plantillas específicas para turismo.",
+   para:"Crear publicaciones para redes, flyers de paquetes y presentaciones de cotización.",
+   como:"Usas las plantillas de turismo para Stories, posts cuadrados y PDFs de propuestas.",
+   nivel:"Básico · Gratis"},
+  {cat:"contenido",accentColor:"#534AB7",iconBg:"#EEEDFE",iconColor:"#534AB7",icon:"📸",
+   name:"Meta Business Suite",sub:"Gestión unificada de Instagram y Facebook",free:true,co:false,combo:false,
+   que:"Panel que unifica Instagram y Facebook para programar, ver métricas y responder mensajes.",
+   para:"Publicar en ambas plataformas desde un solo lugar con calendario de contenido.",
+   como:"Conectas tu cuenta de IG y Facebook. Programas posts con anticipación y ves estadísticas.",
+   nivel:"Básico · Gratis"},
+  {cat:"contenido",accentColor:"#534AB7",iconBg:"#EEEDFE",iconColor:"#534AB7",icon:"🤖",
+   name:"Claude / ChatGPT",sub:"Redacción y creación de contenido con IA",free:true,co:false,combo:false,
+   que:"Asistentes de inteligencia artificial para generar textos, respuestas y contenido de marketing.",
+   para:"Escribir descripciones de paquetes, responder reseñas, crear posts y cotizaciones en minutos.",
+   como:"Describes tu servicio y le pides que escriba. Revisas y ajustas el resultado antes de publicar.",
+   nivel:"Básico · Gratis"},
+
+  {cat:"datos",accentColor:"#993C1D",iconBg:"#FAECE7",iconColor:"#993C1D",icon:"📊",
+   name:"Google Analytics",sub:"Tráfico y comportamiento en tu sitio web",free:true,co:false,combo:false,
+   que:"Herramienta gratuita de Google que mide quién visita tu web y qué hace allí.",
+   para:"Saber de dónde vienen tus visitantes, qué páginas ven y si hacen clic en reservar.",
+   como:"Insertas un código en tu web. En 7 días tienes datos reales para analizar.",
+   nivel:"Intermedio · Gratis"},
+  {cat:"datos",accentColor:"#993C1D",iconBg:"#FAECE7",iconColor:"#993C1D",icon:"📈",
+   name:"Google Sheets",sub:"Base de datos y análisis básico para tu negocio",free:true,co:false,combo:false,
+   que:"Hoja de cálculo en la nube para registrar clientes, reservas y datos de la operación.",
+   para:"Tener un registro organizado que permite tomar decisiones comerciales con datos reales.",
+   como:"Una hoja por mes: nombre del cliente, origen, servicio y valor. En 3 meses tienes inteligencia.",
+   nivel:"Básico · Gratis · Primer paso"},
+  {cat:"datos",accentColor:"#993C1D",iconBg:"#FAECE7",iconColor:"#993C1D",icon:"⭐",
+   name:"Reseñas Google / TripAdvisor",sub:"Inteligencia desde la voz del cliente",free:true,co:false,combo:false,
+   que:"Las reseñas que dejan tus clientes son datos estructurados sobre la calidad de tu servicio.",
+   para:"Identificar qué funciona, qué falla y qué diferencia tu agencia de la competencia.",
+   como:"Exporta tus últimas 20 reseñas, cópialas en Claude y pide un análisis de patrones.",
+   nivel:"Básico · Gratis"},
+];
+
+const CAT_META = {
+  all:              {label:"Todas las categorías",    icon:"🗂️", color:"#156DC9"},
+  comercializacion: {label:"Comercialización y ventas", icon:"🛒", color:"#156DC9"},
+  clientes:         {label:"CRM y gestión de clientes", icon:"👥", color:"#3B6D11"},
+  wa:               {label:"Automatización WhatsApp",   icon:"💬", color:"#BA7517"},
+  operacion:        {label:"Operación interna",          icon:"⚙️", color:"#854F0B"},
+  contenido:        {label:"Contenido y marketing",      icon:"✏️", color:"#534AB7"},
+  datos:            {label:"Datos y analítica",          icon:"📊", color:"#993C1D"},
+};
+
+let currentCat = 'all';
+let openIdx = null;
+let searchTerm = '';
+
+function matchesSearch(t) {
+  if (!searchTerm) return true;
+  const q = searchTerm.toLowerCase();
+  return (t.name + t.sub + t.que + t.para + t.como).toLowerCase().includes(q);
+}
+
+function filteredTools() {
+  return TOOLS.filter(t =>
+    (currentCat === 'all' || t.cat === currentCat) && matchesSearch(t)
+  );
+}
+
+function render() {
+  const filtered = filteredTools();
+  const content = document.getElementById('content');
+  document.getElementById('visibleCount').textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    content.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><p>No se encontraron herramientas con ese criterio.</p></div>`;
+    return;
+  }
+
+  // Group by category
+  const grouped = {};
+  const catOrder = ['comercializacion','clientes','wa','operacion','contenido','datos'];
+  filtered.forEach(t => {
+    if (!grouped[t.cat]) grouped[t.cat] = [];
+    grouped[t.cat].push(t);
+  });
+
+  let html = '';
+  const cats = currentCat === 'all' ? catOrder.filter(c => grouped[c]) : [currentCat];
+
+  cats.forEach(c => {
+    if (!grouped[c]) return;
+    const meta = CAT_META[c];
+    html += `<div class="section-head">
+      <div class="section-icon" style="background:${meta.color}18">${meta.icon}</div>
+      <div class="section-title" style="color:${meta.color}">${meta.label}</div>
+      <div class="section-line"></div>
+      <div class="section-count">${grouped[c].length} herramienta${grouped[c].length>1?'s':''}</div>
+    </div>
+    <div class="grid">`;
+
+    grouped[c].forEach(t => {
+      const idx = TOOLS.indexOf(t);
+      const isOpen = openIdx === idx;
+      html += `<div class="card${isOpen?' open':''}" id="card-${idx}" onclick="toggleCard(${idx})">
+        <div class="card-accent" style="background:${t.accentColor}"></div>
+        <div class="card-body">
+          <div class="card-badges">
+            ${t.free ? `<span class="badge badge-free">Gratis</span>` : ''}
+            ${t.combo ? `<span class="badge badge-combo">+ CRM</span>` : ''}
+            ${t.co ? `<span class="badge badge-co">🇨🇴 Colombia</span>` : ''}
+          </div>
+          <div class="card-top">
+            <div class="card-icon" style="background:${t.iconBg}">${t.icon}</div>
+            <div style="flex:1;min-width:0">
+              <div class="card-name">${t.name}</div>
+              <div class="card-sub">${t.sub}</div>
+            </div>
+            <div class="card-arrow">▾</div>
+          </div>
+          <div class="card-nivel">📌 ${t.nivel}</div>
+        </div>
+        <div class="card-detail">
+          <div class="detail-sep"></div>
+          <div class="detail-row">
+            <div class="detail-lbl">¿Qué es?</div>
+            <div class="detail-val">${t.que}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-lbl">¿Para qué sirve?</div>
+            <div class="detail-val">${t.para}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-lbl">Primer paso concreto</div>
+            <div class="detail-val">${t.como}</div>
+          </div>
+          ${t.pair ? `<div class="combo-note"><strong>Combina con:</strong> ${t.pair}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div><div style="margin-bottom:.75rem"></div>`;
+  });
+
+  content.innerHTML = html;
+}
+
+function toggleCard(idx) {
+  if (openIdx === idx) {
+    openIdx = null;
+  } else {
+    openIdx = idx;
+  }
+  render();
+  if (openIdx !== null) {
+    setTimeout(() => {
+      const el = document.getElementById('card-' + idx);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
+  }
+}
+
+// Filtros
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('.fbtn');
+  if (!btn) return;
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  currentCat = btn.dataset.cat;
+  openIdx = null;
+  render();
+});
+
+// Búsqueda
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchTerm = e.target.value.trim();
+  openIdx = null;
+  if (searchTerm) {
+    currentCat = 'all';
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+    document.querySelector('[data-cat="all"]').classList.add('on');
+  }
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
