@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Así está la sala · Colombia Travel Expo 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#133B5C; --prof:#0B2438; --turq:#1FA6A6; --turq-t:#0F7F80; --bruma:#7FD1CE;
+    --dorado:#D8B200; --ambar:#8A6A00; --graf:#3D4548; --gmed:#66727A; --niebla:#E6EBED; --marfil:#F7F5F0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,Calibri,Arial,sans-serif;background:var(--marfil);color:var(--graf);min-height:100vh}
+  .serif{font-family:'Source Serif 4',Georgia,serif}
+  header{background:var(--prof);color:#fff;padding:18px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  header .tit{flex:1;min-width:260px}
+  header h1{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(26px,3vw,42px);font-weight:700;line-height:1.1}
+  header .sub{color:var(--bruma);font-size:clamp(13px,1.1vw,17px);margin-top:4px}
+  .live{display:flex;align-items:center;gap:8px;font-size:14px;color:#fff;white-space:nowrap}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--turq);box-shadow:0 0 0 0 rgba(31,166,166,.7);animation:pulse 1.8s infinite}
+  .dot.off{background:#c0392b;animation:none}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,166,166,.7)}70%{box-shadow:0 0 0 12px rgba(31,166,166,0)}100%{box-shadow:0 0 0 0 rgba(31,166,166,0)}}
+  .qrbox{background:#fff;border-radius:10px;padding:8px;display:flex;align-items:center;gap:10px}
+  .qrbox span{color:var(--azul);font-size:12px;font-weight:700;max-width:90px;line-height:1.25}
+  #qr img,#qr canvas{display:block;width:84px!important;height:84px!important}
+  main{padding:24px 32px 32px;display:grid;gap:20px;max-width:1700px;margin:0 auto}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:#fff;border-radius:16px;padding:22px 26px;border:1px solid var(--niebla)}
+  .kpi .lbl{font-size:14px;font-weight:600;color:var(--gmed);text-transform:uppercase;letter-spacing:.06em}
+  .kpi .val{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(44px,5vw,76px);font-weight:700;color:var(--azul);line-height:1.05;margin-top:6px}
+  .kpi .val small{font-size:.38em;color:var(--gmed);font-weight:600}
+  .kpi .det{font-size:17px;color:var(--graf);margin-top:4px}
+  .kpi.dark{background:var(--azul);border-color:var(--azul)}
+  .kpi.dark .lbl{color:var(--bruma)} .kpi.dark .val{color:#fff;font-size:clamp(28px,2.7vw,42px);margin-top:12px} .kpi.dark .det{color:var(--dorado);font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1.15fr;gap:20px}
+  h2{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,1.8vw,28px);color:var(--azul);margin-bottom:4px}
+  .hint{font-size:14px;color:var(--gmed);margin-bottom:16px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr 90px;align-items:center;gap:14px;margin:12px 0}
+  .row .name{font-size:clamp(14px,1.15vw,18px);font-weight:600;color:var(--graf)}
+  .track{height:28px;background:var(--niebla);border-radius:14px;overflow:hidden}
+  .fill{height:100%;border-radius:14px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+  .row .num{font-size:clamp(16px,1.3vw,22px);font-weight:700;color:var(--azul);text-align:right}
+  .row.low .name{color:var(--ambar)} .row.low .num{color:var(--ambar)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;background:#fff6cc;color:var(--ambar);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+  .chip{border:1.5px solid var(--niebla);background:#fff;color:var(--azul);font:600 15px Inter,Calibri,sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer}
+  .chip b{color:var(--turq-t);margin-left:6px}
+  .chip.on{background:var(--azul);border-color:var(--azul);color:#fff} .chip.on b{color:var(--dorado)}
+  table{width:100%;border-collapse:collapse;font-size:clamp(14px,1.1vw,17px)}
+  th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--gmed);padding:8px 10px;border-bottom:2px solid var(--niebla)}
+  td{padding:10px;border-bottom:1px solid var(--niebla)}
+  td.n{font-weight:700;color:var(--azul)}
+  .empty{text-align:center;padding:40px;color:var(--gmed);font-size:18px}
+  .msg{background:#fff6cc;color:var(--ambar);border-radius:12px;padding:12px 16px;font-size:15px;display:none}
+  footer{text-align:center;color:var(--gmed);font-size:13px;padding:0 0 24px}
+  @media(max-width:900px){.kpis,.grid2{grid-template-columns:1fr} main,header{padding-left:16px;padding-right:16px} .row{grid-template-columns:120px 1fr 64px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="tit">
+    <h1>Así está la sala</h1>
+    <div class="sub">Test de madurez digital · Colombia Travel Expo 2026 · Dra. Ledys López Zapata</div>
+  </div>
+  <div class="live"><span class="dot" id="dot"></span><span id="liveTxt">Conectando…</span></div>
+  <div class="qrbox"><div id="qr"><img src="data:image/png;base64,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" alt="Código QR del test"></div><span>¿Aún no responde? Escanee aquí</span></div>
+</header>
+
+<main>
+  <div class="msg" id="msg"></div>
+
+  <section class="kpis">
+    <div class="card kpi"><div class="lbl">Empresas que respondieron</div><div class="val" id="kN">0</div><div class="det" id="kNdet">&nbsp;</div></div>
+    <div class="card kpi"><div class="lbl">Puntaje promedio</div><div class="val" id="kT">0<small> / 45</small></div><div class="det" id="kTdet">&nbsp;</div></div>
+    <div class="card kpi dark"><div class="lbl">El componente más bajo</div><div class="val" id="kL">—</div><div class="det" id="kLdet">&nbsp;</div></div>
+  </section>
+
+  <section class="card">
+    <h2>Ver por subsector</h2>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>¿En qué nivel están?</h2>
+      <div class="hint">Número de empresas por perfil de madurez</div>
+      <div id="perfiles"></div>
+    </div>
+    <div class="card">
+      <h2>Promedio por componente</h2>
+      <div class="hint">De 0 a 9 puntos. En dorado, el más bajo: ahí está el trabajo.</div>
+      <div id="dims"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Comparación entre subsectores</h2>
+    <div class="hint">Promedio total y componente más bajo de cada uno</div>
+    <div id="tabla"></div>
+  </section>
+</main>
+<footer>Solo se muestran cifras agregadas. No se publica ningún nombre.</footer>
+
+<script>
+// URL de la aplicación web de apps_script_expo.gs (también se puede pasar como ?api=...)
+const API_URL = "";
+const TEST_URL = "https://ledyslopez30-creator.github.io/Test-madurez/test_madurez_expo.html";
+const REFRESCO_MS = 8000;
+
+const DIMS = [
+  ["presenciaDigital","Presencia digital"],
+  ["gestionCliente","Gestión con el cliente"],
+  ["usoDatos","Uso de datos"],
+  ["iaAutomatizacion","IA y automatización"],
+  ["sostenibilidad","Sostenibilidad y reputación"]
+];
+const PERFILES = [
+  ["Inicio digital","#7FD1CE"],["Adoptante temprana","#1FA6A6"],
+  ["Empresa conectada","#0F7F80"],["Empresa inteligente","#133B5C"]
+];
+const qs = new URLSearchParams(location.search);
+const api = qs.get("api") || API_URL;
+const demo = qs.has("demo");
+let datos = null, filtro = "__todo__";
+
+
+function perfilDe(t){ return t<=9?"Inicio digital":t<=20?"Adoptante temprana":t<=31?"Empresa conectada":"Empresa inteligente"; }
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+// ---------- modo ensayo ----------
+const DEMO_SUBS = ["Alojamiento y hospedaje","Agencia de viajes y operador turístico","Restaurante y gastronomía","OPC, eventos y MICE","Guianza y experiencias"];
+let demoRows = [];
+function demoTick(){
+  const k = 2 + Math.floor(Math.random()*3);
+  for(let i=0;i<k;i++){
+    const sub = DEMO_SUBS[Math.floor(Math.random()*DEMO_SUBS.length)];
+    const base = {presenciaDigital:5,gestionCliente:5,usoDatos:2,iaAutomatizacion:3,sostenibilidad:4};
+    const r = {subsector: sub};
+    DIMS.forEach(([d]) => r[d] = Math.max(0, Math.min(9, base[d] + Math.round((Math.random()-.4)*5))));
+    r.puntajeTotal = DIMS.reduce((s,[d]) => s + r[d], 0);
+    r.perfil = perfilDe(r.puntajeTotal);
+    demoRows.push(r);
+  }
+  return agregar(demoRows);
+}
+function agregar(rows){
+  const out = {n:0,total:0,perfiles:{},dims:{},subsectores:{},actualizado:new Date()};
+  DIMS.forEach(([d]) => out.dims[d]=0);
+  rows.forEach(r => {
+    out.n++; out.total += r.puntajeTotal; out.perfiles[r.perfil]=(out.perfiles[r.perfil]||0)+1;
+    const S = out.subsectores[r.subsector] = out.subsectores[r.subsector] || {n:0,total:0,dims:{},perfiles:{}};
+    S.n++; S.total += r.puntajeTotal; S.perfiles[r.perfil]=(S.perfiles[r.perfil]||0)+1;
+    DIMS.forEach(([d]) => { out.dims[d]+=r[d]; S.dims[d]=(S.dims[d]||0)+r[d]; });
+  });
+  const avg=(x,n)=>n?Math.round(x/n*10)/10:0;
+  out.total=avg(out.total,out.n); DIMS.forEach(([d])=>out.dims[d]=avg(out.dims[d],out.n));
+  Object.values(out.subsectores).forEach(S=>{S.total=avg(S.total,S.n); DIMS.forEach(([d])=>S.dims[d]=avg(S.dims[d]||0,S.n));});
+  return out;
+}
+
+// ---------- carga ----------
+async function cargar(){
+  try{
+    if(demo){ datos = demoTick(); }
+    else{
+      if(!api) throw new Error("config");
+      const r = await fetch(api + (api.includes("?")?"&":"?") + "t=" + Date.now());
+      if(!r.ok) throw new Error("http");
+      datos = await r.json();
+    }
+    document.getElementById("dot").classList.remove("off");
+    const h = new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    document.getElementById("liveTxt").textContent = (demo ? "Modo ensayo · " : "En vivo · ") + h;
+    document.getElementById("msg").style.display = "none";
+    pintar();
+  }catch(e){
+    document.getElementById("dot").classList.add("off");
+    document.getElementById("liveTxt").textContent = "Sin conexión";
+    const m = document.getElementById("msg");
+    m.textContent = e.message==="config"
+      ? "Falta conectar la hoja: pegue la URL del Apps Script en API_URL o abra esta página con ?api=URL. Para ensayar, agregue ?demo al final de la dirección."
+      : "No se pudo leer la hoja. Reintentando…";
+    m.style.display = "block";
+  }
+}
+
+// ---------- dibujo ----------
+function pintar(){
+  if(!datos) return;
+  const subs = datos.subsectores || {};
+  if(filtro!=="__todo__" && !subs[filtro]) filtro="__todo__";
+  const V = filtro==="__todo__" ? datos : subs[filtro];
+  const n = V.n || 0;
+
+  // chips
+  const chips = [["__todo__","Toda la sala",datos.n||0]].concat(
+    Object.entries(subs).sort((a,b)=>b[1].n-a[1].n).map(([k,v])=>[k,k,v.n]));
+  document.getElementById("chips").innerHTML = chips.map(([k,l,c]) =>
+    `<button class="chip ${k===filtro?'on':''}" data-k="${esc(k)}">${esc(l)}<b>${c}</b></button>`).join("");
+  document.querySelectorAll(".chip").forEach(b => b.onclick = () => { filtro = b.dataset.k; pintar(); });
+
+  // KPIs
+  document.getElementById("kN").textContent = n;
+  document.getElementById("kNdet").textContent = filtro==="__todo__" ? `${Object.keys(subs).length} subsectores` : filtro;
+  document.getElementById("kT").innerHTML = `${n?String(V.total).replace(".",","):0}<small> / 45</small>`;
+  document.getElementById("kTdet").textContent = n ? "Perfil promedio: " + perfilDe(V.total) : " ";
+  const dimsV = DIMS.map(([d,l]) => [d,l,(V.dims||{})[d]||0]);
+  const low = n ? dimsV.reduce((a,b)=> b[2]<a[2]?b:a) : null;
+  document.getElementById("kL").textContent = low ? low[1] : "—";
+  document.getElementById("kLdet").textContent = low ? `${String(low[2]).replace(".",",")} de 9 en promedio` : " ";
+
+  if(!n){
+    document.getElementById("perfiles").innerHTML = document.getElementById("dims").innerHTML =
+      `<div class="empty">Esperando las primeras respuestas…</div>`;
+  } else {
+    const pf = V.perfiles || {};
+    document.getElementById("perfiles").innerHTML = PERFILES.map(([p,c]) => {
+      const v = pf[p]||0, pct = Math.round(v/n*100);
+      return `<div class="row"><div class="name">${p}</div><div class="track"><div class="fill" style="width:${pct}%;background:${c}"></div></div><div class="num">${v} <span style="font-size:.7em;color:#66727A">· ${pct}%</span></div></div>`;
+    }).join("");
+    document.getElementById("dims").innerHTML = dimsV.map(([d,l,v]) => {
+      const isLow = low && d===low[0];
+      return `<div class="row ${isLow?'low':''}"><div class="name">${l}${isLow?'<span class="tag">más bajo</span>':''}</div><div class="track"><div class="fill" style="width:${Math.round(v/9*100)}%;background:${isLow?'#D8B200':'#1FA6A6'}"></div></div><div class="num">${String(v).replace(".",",")} / 9</div></div>`;
+    }).join("");
+  }
+
+  // tabla
+  const filas = Object.entries(subs).sort((a,b)=>b[1].n-a[1].n);
+  document.getElementById("tabla").innerHTML = filas.length ? `<table><thead><tr><th>Subsector</th><th>Empresas</th><th>Promedio</th><th>Componente más bajo</th></tr></thead><tbody>${
+    filas.map(([k,S]) => { const lw = DIMS.map(([d,l])=>[l,S.dims[d]||0]).reduce((a,b)=>b[1]<a[1]?b:a);
+      return `<tr><td>${esc(k)}</td><td class="n">${S.n}</td><td class="n">${String(S.total).replace(".",",")} / 45</td><td>${lw[0]} · ${String(lw[1]).replace(".",",")}</td></tr>`; }).join("")
+  }</tbody></table>` : `<div class="empty">Sin datos todavía</div>`;
+}
+
+cargar();
+setInterval(cargar, demo ? 4000 : REFRESCO_MS);
+</script>
+</body>
+</html>

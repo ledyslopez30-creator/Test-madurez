@@ -47,6 +47,8 @@
   .nombre-row{display:flex;gap:10px;flex-wrap:wrap;}
   .nombre-input{flex:1;min-width:180px;padding:10px 14px;border:1.5px solid var(--gris-border);border-radius:var(--r);font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border-color .15s;}
   .nombre-input:focus{border-color:var(--azul);}
+  select.nombre-input{background:#fff;appearance:auto;}
+  .nombre-input.falta{border-color:#c0392b;background:#fdf1ef;}
   .municipio-input{width:200px;}
 
   .progress-wrap{background:var(--blanco);padding:.75rem 2rem;border-bottom:1px solid var(--gris-border);position:sticky;top:0;z-index:10;}
@@ -170,6 +172,26 @@
     <div class="nombre-row">
       <input class="nombre-input" id="inputNombre" type="text" placeholder="Tu nombre y empresa (si estudias, la empresa en la que piensas)" maxlength="80">
       <input class="nombre-input municipio-input" id="inputMunicipio" type="text" placeholder="Municipio" maxlength="50">
+    </div>
+    <div class="nombre-row" style="margin-top:10px">
+      <select class="nombre-input" id="inputSubsector" required>
+        <option value="">Subsector de la empresa *</option>
+        <option>Alojamiento y hospedaje</option>
+        <option>Agencia de viajes y operador turístico</option>
+        <option>Restaurante y gastronomía</option>
+        <option>OPC, eventos y MICE</option>
+        <option>Transporte turístico</option>
+        <option>Guianza y experiencias</option>
+        <option>Parque o atractivo turístico</option>
+        <option>Otro</option>
+      </select>
+      <select class="nombre-input" id="inputRol">
+        <option value="">Usted es…</option>
+        <option>Dueño o directivo</option>
+        <option>Empleado</option>
+        <option>Estudiante</option>
+        <option>Consultor, gremio o entidad</option>
+      </select>
     </div>
   </div>
 </div>
@@ -423,7 +445,9 @@
 // ══════════════════════════════════════════════
 // ⚙️  REEMPLAZA ESTA URL con la de tu Apps Script
 // ══════════════════════════════════════════════
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwnY_4QBZI5FZOpYX9S4tPp5wo2rl6WfKQxeqfuy_4o7984yTHcNQFr4nOyFePQy3z5w/exec";
+// Script de la hoja de la feria (ver apps_script_expo.gs). Si queda vacío, se usa el del programa.
+const EXPO_SCRIPT_URL = "";
+const APPS_SCRIPT_URL_MTMN = "https://script.google.com/macros/s/AKfycbwwnY_4QBZI5FZOpYX9S4tPp5wo2rl6WfKQxeqfuy_4o7984yTHcNQFr4nOyFePQy3z5w/exec";
 // ══════════════════════════════════════════════
 
 const dims=[
@@ -487,7 +511,7 @@ function enviarASheets(payload){
   const box=document.getElementById('sendStatus');
   box.innerHTML=`<div class="send-status send-loading"><div class="spinner"></div>Guardando tus resultados…</div>`;
 
-  fetch(APPS_SCRIPT_URL,{
+  fetch(EXPO_SCRIPT_URL||APPS_SCRIPT_URL_MTMN,{
     method:'POST',
     mode:'no-cors',
     headers:{'Content-Type':'application/json'},
@@ -504,10 +528,15 @@ function enviarASheets(payload){
 function calcular(){
   const missing=[];
   for(let i=1;i<=15;i++) if(!document.querySelector(`input[name="q${i}"]:checked`)) missing.push(i);
+  const subEl=document.getElementById('inputSubsector');
+  if(!subEl.value){subEl.classList.add('falta');subEl.scrollIntoView({behavior:'smooth',block:'center'});alert('Elige el subsector de la empresa antes de ver tu resultado.');return;}
+  subEl.classList.remove('falta');
   if(missing.length>0){alert('Por favor responde todas las preguntas antes de continuar.\n\nPreguntas pendientes: '+missing.join(', '));return;}
 
   const nombre='[Expo 2026] '+(document.getElementById('inputNombre').value.trim()||'Sin nombre');
   const municipio=document.getElementById('inputMunicipio').value.trim()||'Sin municipio';
+  const subsector=document.getElementById('inputSubsector').value;
+  const rol=document.getElementById('inputRol').value||'Sin dato';
   const total=dims.reduce((s,d)=>s+dsc(d.qs),0);
   const p=perfiles.find(x=>total>=x.min&&total<=x.max);
   const pi=perfiles.indexOf(p);
@@ -555,6 +584,8 @@ function calcular(){
     nombre,
     municipio,
     origen: 'Colombia Travel Expo 2026',
+    subsector,
+    rol,
     perfil: p.nombre,
     puntajeTotal: total,
     presenciaDigital: dimScores[0],
